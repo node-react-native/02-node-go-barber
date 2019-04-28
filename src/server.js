@@ -1,5 +1,5 @@
 const express = require('express')
-const nunjucks = require('nunjuck')
+const nunjucks = require('nunjucks')
 const path = require('path')
 
 class App {
@@ -26,7 +26,9 @@ class App {
     this.express.set('view engine', 'njk')
   }
 
-  routes () {}
+  routes () {
+    this.express.use(require('./routes'))
+  }
 }
 
 module.exports = new App().express
