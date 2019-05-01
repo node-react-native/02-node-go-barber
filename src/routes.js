@@ -3,7 +3,7 @@ const multerConfig = require('./config/multer')
 const upload = require('multer')(multerConfig)
 
 const routes = express.Router()
-const authMidleware = require('./app/middlewares/auth')
+const authMiddleware = require('./app/middlewares/auth')
 const guestMiddleware = require('./app/middlewares/guest')
 
 const UserController = require('./app/controllers/UserController')
@@ -15,7 +15,9 @@ routes.post('/signin', SessionController.store)
 routes.get('/signup', guestMiddleware, UserController.create)
 routes.post('/signup', upload.single('avatar'), UserController.store)
 
-routes.use('/app', authMidleware) // all routes thats start with app/ uses this middleware
+routes.use('/app', authMiddleware) // all routes thats start with app/ uses this middleware
+
+routes.get('/app/logout', SessionController.destroy)
 
 routes.get('/app/dashboard', (req, res) => {
   console.log(req.session.user)

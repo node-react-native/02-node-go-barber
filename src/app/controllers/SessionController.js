@@ -22,6 +22,13 @@ class SessionController {
 
     return res.redirect('/app/dashboard')
   }
+
+  destroy (req, res) {
+    req.session.destroy(() => {
+      res.clearCookie('root')
+      res.redirect('/')
+    })
+  }
 }
 
 module.exports = new SessionController()
