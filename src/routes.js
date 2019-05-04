@@ -10,6 +10,7 @@ const UserController = require('./app/controllers/UserController')
 const SessionController = require('./app/controllers/SessionController')
 const DashboardController = require('./app/controllers/DashboardController')
 const FileController = require('./app/controllers/FileController')
+const AppointmentController = require('./app/controllers/AppointmentController')
 
 // configure middleware to share flash messages (connect-flash lib) with nunjucks
 routes.use((req, res, next) => {
@@ -32,5 +33,7 @@ routes.use('/app', authMiddleware) // all routes thats start with app/ uses this
 routes.get('/app/logout', SessionController.destroy)
 
 routes.get('/app/dashboard', DashboardController.index)
+
+routes.get('/app/appointments/new/:provider', AppointmentController.create)
 
 module.exports = routes
