@@ -19,6 +19,18 @@ class AppointmentController {
 
     return res.redirect('/app/dashboard')
   }
+
+  async list (req, res) {
+    const { id } = req.session.user
+    const appointments = await Appointment.findAll({
+      where: {
+        provider_id: id
+      },
+      order: [['date', 'ASC']],
+      include: [{ model: User, as: 'user' }]
+    })
+    return res.render('appointments/list', { appointments })
+  }
 }
 
 module.exports = new AppointmentController()
